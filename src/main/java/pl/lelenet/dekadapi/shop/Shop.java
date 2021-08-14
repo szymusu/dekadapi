@@ -1,10 +1,12 @@
 package pl.lelenet.dekadapi.shop;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pl.lelenet.dekadapi.image.Image;
 
 import javax.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer"}) //TODO: probably hack
 public class Shop {
 
     @Id @GeneratedValue

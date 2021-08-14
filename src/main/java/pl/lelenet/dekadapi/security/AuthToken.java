@@ -37,6 +37,10 @@ public class AuthToken {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public LocalDateTime getLastAccessTime() {
         return lastAccessTime;
     }

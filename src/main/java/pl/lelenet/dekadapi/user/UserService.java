@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.lelenet.dekadapi.shop.Shop;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -23,5 +24,14 @@ public class UserService implements UserDetailsService {
             return user;
         }
         throw new UsernameNotFoundException("There's no user with username " + s);
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
+    }
+
+    public boolean userHasShop(String username, Shop shop) {
+        final User user = getUserByUsername(username);
+        return user.getShops().contains(shop);
     }
 }

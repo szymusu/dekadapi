@@ -2,6 +2,7 @@ package pl.lelenet.dekadapi.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.lelenet.dekadapi.shop.Shop;
 import pl.lelenet.dekadapi.user.role.UserRole;
 
 import javax.persistence.*;
@@ -30,14 +31,23 @@ public class User implements UserDetails {
     )
     private List<UserRole> roles;
 
+    @ManyToMany(targetEntity = Shop.class)
+    @JoinTable(name = "shop_employees",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "shop_id", referencedColumnName = "id")
+    )
+    private List<Shop> shops;
+
     public User() {
         roles = new ArrayList<>();
+        shops = new ArrayList<>();
     }
 
-    public User(String username, String password, List<UserRole> roles) {
+    public User(String username, String password, List<UserRole> roles, List<Shop> shops) {
         this.username = username;
         this.password = password;
         this.roles = roles;
+        this.shops = shops;
     }
 
     @Override
@@ -97,5 +107,13 @@ public class User implements UserDetails {
 
     public List<UserRole> getRoles() {
         return roles;
+    }
+
+    public void setShops(List<Shop> shops) {
+        this.shops = shops;
+    }
+
+    public List<Shop> getShops() {
+        return shops;
     }
 }

@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import pl.lelenet.dekadapi.config.Constants;
+import pl.lelenet.dekadapi.dto.ResponseMessage;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,9 +29,6 @@ public class AuthEntryPoint implements AuthenticationEntryPoint {
         response.addHeader("Access-Control-Allow-Methods", "HEAD,GET,PUT,POST,DELETE,PATCH");
         response.addHeader("Access-Control-Allow-Origin", "*");
 
-        response.getWriter().println(gson.toJson(new HashMap<String, Object>() {{
-                    put(Constants.RESPONSE_BODY_MESSAGE_KEY, "Invalid Credentials");
-                }})
-        );
+        response.getWriter().println(gson.toJson(new ResponseMessage("Invalid Credentials")));
     }
 }

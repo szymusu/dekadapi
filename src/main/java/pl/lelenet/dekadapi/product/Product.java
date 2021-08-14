@@ -1,11 +1,13 @@
 package pl.lelenet.dekadapi.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pl.lelenet.dekadapi.image.Image;
 import pl.lelenet.dekadapi.shop.Shop;
 
 import javax.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer"}) //TODO: probably hack
 public class Product {
 
     @Id @GeneratedValue
@@ -49,6 +51,10 @@ public class Product {
 
     public void setDiscountPrice(Integer discountPrice) {
         this.discountPrice = discountPrice;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 
     public Product() { }
